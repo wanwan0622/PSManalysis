@@ -1,11 +1,11 @@
 function main(input) {
     const args = input.split("\n");
     const nums = args.map((n) => n.split(","));
-  //   console.log(nums);
+    // console.log(nums);
     const headers = nums[0];      // csvファイルのヘッダー
-  //   console.log(headers);
+    // console.log(headers);
     const num_sample = nums.length - 2;   // サンプル数
-  //   console.log(num_sample);
+    // console.log(num_sample);
     const dict_data = [];
     for (let i=1; i<=num_sample; i++) {
         let tmp_dict = new Array();
@@ -15,7 +15,6 @@ function main(input) {
         dict_data.push(tmp_dict);
     }
     console.log(dict_data);
-  }
-  
-  main(require("fs").readFileSync("/dev/stdin", "utf8"));
-  
+}
+
+main(require("fs").readFileSync("/dev/stdin", "utf8"));
