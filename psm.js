@@ -46,47 +46,47 @@ function main(input) {
     // console.log(nums);
     const headers = nums[0];      // csvファイルのヘッダー
     // console.log(headers);
-    const num_sample = nums.length - 2;   // サンプル数
-    // console.log(num_sample);
+    const numSample = nums.length - 2;   // サンプル数
+    // console.log(numSample);
 
     // データの整形
-    const dict_data = [];
-    let max_price = 0;    // csvに書かれている金額の最大値
-    for (let i=1; i<=num_sample; i++) {
-        let tmp_dict = new Array();
+    const dictData = [];
+    let maxPrice = 0;    // csvに書かれている金額の最大値
+    for (let i=1; i<=numSample; i++) {
+        let tmpDict = new Array();
         for (let j=0; j<headers.length; j++) {
             let num = Number(nums[i][j]);
-            tmp_dict[headers[j]] = num;
-            if (j !== 0 && num >= max_price) {
-                max_price = num;
+            tmpDict[headers[j]] = num;
+            if (j !== 0 && num >= maxPrice) {
+                maxPrice = num;
             }
         }
-        if (tmp_dict !== undefined) dict_data.push(tmp_dict);
+        if (tmpDict !== undefined) dictData.push(tmpDict);
     }
-    // console.log(max_price);
-    // console.log(dict_data);
-    // console.log(dict_data[0]["高い"]);
+    // console.log(maxPrice);
+    // console.log(dictData);
+    // console.log(dictData[0]["高い"]);
     
     // 割合を求める
     const diff = 50;     // 何円単位で集計するか
-    const rate_data = new Array();
-    for (let price=diff; price<=max_price; price+=diff) {
-        let tmp_rate = new Array();
+    const rateData = [];
+    for (let price=diff; price<=maxPrice; price+=diff) {
+        let tmpRate = new Array();
         for (let i=1; i<=4; i++) {
-            tmp_rate[headers[i]] = 0;
+            tmpRate[headers[i]] = 0;
         }
-        for (let i=0; i<num_sample; i++) {
-            if (dict_data[i]["高い"] <= price) tmp_rate["高い"]++;
-            if (dict_data[i]["安い"] >= price) tmp_rate["安い"]++;
-            if (dict_data[i]["高すぎる"] <= price) tmp_rate["高すぎる"]++;
-            if (dict_data[i]["安すぎる"] >= price) tmp_rate["安すぎる"]++;
+        for (let i=0; i<numSample; i++) {
+            if (dictData[i]["高い"] <= price) tmpRate["高い"]++;
+            if (dictData[i]["安い"] >= price) tmpRate["安い"]++;
+            if (dictData[i]["高すぎる"] <= price) tmpRate["高すぎる"]++;
+            if (dictData[i]["安すぎる"] >= price) tmpRate["安すぎる"]++;
         }
         for (let i=1; i<=4; i++) {
-            tmp_rate[headers[i]] /= (num_sample / 100);
+            tmpRate[headers[i]] /= (numSample / 100);
         }
-        rate_data[price] = tmp_rate;
+        rateData.push(tmpRate);
     }
-    console.log(rate_data);
+    // console.log(rateData);
 }
 
 main(require("fs").readFileSync("/dev/stdin", "utf8"));
