@@ -87,6 +87,14 @@ function main(input) {
         rateData.push(tmpRate);
     }
     // console.log(rateData);
+    const saiko = getIntersection(rateData, "安い", "高すぎる", diff);
+    console.log("最高価格　　　　", Math.round(saiko[0]).toString()+"円");
+    const dakyo = getIntersection(rateData, "安い", "高い", diff);
+    console.log("妥協価格　　　　", Math.round(dakyo[0]).toString()+"円");
+    const riso = getIntersection(rateData, "安すぎる", "高すぎる", diff);
+    console.log("理想価格　　　　", Math.round(riso[0]).toString()+"円");
+    const hosyo = getIntersection(rateData, "安すぎる", "高い", diff);
+    console.log("最低品質保証価格", Math.round(hosyo[0]).toString()+"円");
 }
 
 main(require("fs").readFileSync("/dev/stdin", "utf8"));
